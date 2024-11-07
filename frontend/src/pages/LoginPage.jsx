@@ -73,10 +73,10 @@ export default function LoginPage() {
           </div>
           <div className=" bg-white rounded-2xl p-8">
             <h2 className="text-2xl font-semibold text-left capitalize text-gray-800 pb-3">
-              Login to your account
+              Masuk dengan akun anda
             </h2>
             <h3 className="pb-5 capitalize">
-              Welcome back, please enter your details
+              Selamat datang, masuk dengan akun terdaftar
             </h3>
             <form onSubmit={handleLogin}>
               <div className="mb-4">
@@ -129,7 +129,7 @@ export default function LoginPage() {
                     type="submit"
                     className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    Login
+                    Sign in
                   </button>
                   <div className="flex gap-2 w-full items-center justify-center">
                     <div className="h-[1px] w-full bg-gray-400" />
@@ -137,10 +137,10 @@ export default function LoginPage() {
                     <div className="h-[1px] w-full bg-gray-400" />
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-2 pt-5 ">
-                  <p>Don't have an account?</p>
+                <div className="flex items-center justify-center gap-2 pt-5 capitalize ">
+                  <p>Belum memiliki akun?</p>
                   <Link className="text-blue-500 font-bold" to={"/register"}>
-                    Create account
+                    Buat akun
                   </Link>
                 </div>
               </div>

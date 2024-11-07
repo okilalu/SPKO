@@ -78,7 +78,7 @@ export default function Register() {
         </div>
         <div className="w-full max-w-md bg-white shadow-md rounded-lg p-8">
           <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6 capitalize">
-            Create an account
+            Daftar akun baru
           </h2>
           <form onSubmit={handleRegister}>
             <div className="mb-4">
@@ -173,9 +173,9 @@ export default function Register() {
                 </div>
               </div>
               <div className="flex items-center justify-center gap-2 mt-8 capitalize">
-                <p>Already have an account?</p>
+                <p>Sudah memiliki akun?</p>
                 <Link className="text-blue-500 font-bold" to={"/login"}>
-                  Log in
+                  sign in
                 </Link>
               </div>
               {error && <p className="text-red-500">{error}</p>}
