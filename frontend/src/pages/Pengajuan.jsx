@@ -34,7 +34,7 @@ export default function Pengajuan({ user }) {
   const itemsPerPage = 8;
 
   const filteredDocs = daftarDoc
-    .filter((item) => {
+    ?.filter((item) => {
       const matchesStatus = selectedStatus
         ? item.status === selectedStatus
         : true;
@@ -62,7 +62,7 @@ export default function Pengajuan({ user }) {
   const handleSortOrder = (e) => {
     setSortOrder(e.target.value); // Update sort order
   };
-  const itemsPengajuan = filteredDocs.slice(
+  const itemsPengajuan = filteredDocs?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -242,7 +242,7 @@ export default function Pengajuan({ user }) {
         <View style={styles.table}>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Nama </Text>
-            <Text style={styles.tableCol}>{items.name}</Text>
+            <Text style={styles.tableCol}>{items.nama}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Status </Text>
@@ -258,59 +258,59 @@ export default function Pengajuan({ user }) {
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Identitas </Text>
-            <Text style={styles.tableCol}>{items.identity}</Text>
+            <Text style={styles.tableCol}>{items.identitas}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>No. Identitas </Text>
-            <Text style={styles.tableCol}>{items.noIdentity}</Text>
+            <Text style={styles.tableCol}>{items.noIdentitas}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Tempat/Tanggal Lahir </Text>
-            <Text style={styles.tableCol}>{items.born}</Text>
+            <Text style={styles.tableCol}>{items.ttl}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Jenis Kelamin </Text>
-            <Text style={styles.tableCol}>{items.gender}</Text>
+            <Text style={styles.tableCol}>{items.jenisKelamin}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Agama </Text>
-            <Text style={styles.tableCol}>{items.religion}</Text>
+            <Text style={styles.tableCol}>{items.agama}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Status Perkawinan </Text>
-            <Text style={styles.tableCol}>{items.merriedStatus}</Text>
+            <Text style={styles.tableCol}>{items.statusPerkawninan}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Kewarganegaraan </Text>
-            <Text style={styles.tableCol}>{items.citizenShip}</Text>
+            <Text style={styles.tableCol}>{items.kewarganegaraan}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Nama Ibu Kandung </Text>
-            <Text style={styles.tableCol}>{items.motherName}</Text>
+            <Text style={styles.tableCol}>{items.namaIbu}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Alamat </Text>
-            <Text style={styles.tableCol}>{items.address}</Text>
+            <Text style={styles.tableCol}>{items.alamat}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>No. HP </Text>
-            <Text style={styles.tableCol}>{items.phoneNumber}</Text>
+            <Text style={styles.tableCol}>{items.noHP}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Pendidikan </Text>
-            <Text style={styles.tableCol}>{items.education}</Text>
+            <Text style={styles.tableCol}>{items.pendidikan}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Pekerjaan </Text>
-            <Text style={styles.tableCol}>{items.jobStatus}</Text>
+            <Text style={styles.tableCol}>{items.statusPekerjaan}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Kategori Bisnis </Text>
-            <Text style={styles.tableCol}>{items.businessCategory}</Text>
+            <Text style={styles.tableCol}>{items.kategoriBisnis}</Text>
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>Deskripsi Bisnis </Text>
-            <Text style={styles.tableCol}>{items.businessDesc}</Text>
+            <Text style={styles.tableCol}>{items.deskBisnis}</Text>
           </View>
         </View>
 
@@ -321,30 +321,32 @@ export default function Pengajuan({ user }) {
           <View style={[styles.table, styles.responsiveTable]}>
             <View style={styles.tableRow}></View>
             {items &&
-              items?.responsibles?.map((response, index) => (
+              items?.penanggungJawabs?.map((response, index) => (
                 <React.Fragment key={index}>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableCol}>Penanggung Jawab </Text>
-                    <Text style={styles.tableCol}>{response.responsible}</Text>
+                    <Text style={styles.tableCol}>
+                      {response.penanggungJawab}
+                    </Text>
                   </View>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableCol}>
                       Identitas Penanggung Jawab
                     </Text>
                     <Text style={styles.tableCol}>
-                      {response.responsibleIdentity}
+                      {response.identitasPenanggungJawab}
                     </Text>
                   </View>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableCol}>No. Identitas </Text>
                     <Text style={styles.tableCol}>
-                      {response.responsibleNoIdentity}
+                      {response.noIdentitasPenanggungJawab}
                     </Text>
                   </View>
                   <View style={styles.tableRow}>
                     <Text style={styles.tableCol}>Nama Penanggung Jawab </Text>
                     <Text style={styles.tableCol}>
-                      {response.responsibleName}
+                      {response.namaPenanggungJawab}
                     </Text>
                   </View>
                 </React.Fragment>
@@ -441,7 +443,7 @@ export default function Pengajuan({ user }) {
                         <div
                           className="p-2 hover:bg-gray-100 cursor-pointer"
                           onClick={() =>
-                            handleChangeStatus("Your data will be processed")
+                            handleChangeStatus("Data anda akan segera diproses")
                           } // Untuk memilih 'Semua'
                         >
                           Diproses
@@ -450,7 +452,7 @@ export default function Pengajuan({ user }) {
                           className="p-2 hover:bg-gray-100 cursor-pointer"
                           onClick={() =>
                             handleChangeStatus(
-                              "Document has been validate by system"
+                              "Berkas telah lolos pengecekan sistem"
                             )
                           }
                         >
@@ -460,7 +462,7 @@ export default function Pengajuan({ user }) {
                           className="p-2 hover:bg-gray-100 cursor-pointer"
                           onClick={() =>
                             handleChangeStatus(
-                              "Document has been rejected by system"
+                              "Berkas tidak lolos pengecekan sistem"
                             )
                           }
                         >
@@ -513,10 +515,10 @@ export default function Pengajuan({ user }) {
                                   <div
                                     className={`items-center justify-center border rounded-lg w-12 h-12 content-center ${
                                       items.status ===
-                                      "Document has been validate by system"
+                                      "Berkas telah lolos pengecekan sistem"
                                         ? "border-green-500"
                                         : items.status ===
-                                          "Document has been rejected by system"
+                                          "Berkas tidak lolos pengecekan sistem"
                                         ? "border-red-500"
                                         : "border-blue-500"
                                     }`}
@@ -524,10 +526,10 @@ export default function Pengajuan({ user }) {
                                     <p
                                       className={`text-center  ${
                                         items.status ===
-                                        "Document has been validate by system"
+                                        "Berkas telah lolos pengecekan sistem"
                                           ? "text-green-500"
                                           : items.status ===
-                                            "Document has been rejected by system"
+                                            "Berkas tidak lolos pengecekan sistem"
                                           ? "text-red-500"
                                           : "text-blue-500"
                                       }`}
@@ -539,10 +541,10 @@ export default function Pengajuan({ user }) {
                                     <div
                                       className={`font-bold ${
                                         items.status ===
-                                        "Document has been validate by system"
+                                        "Berkas telah lolos pengecekan sistem"
                                           ? "text-green-500"
                                           : items.status ===
-                                            "Document has been rejected by system"
+                                            "Berkas tidak lolos pengecekan sistem"
                                           ? "text-red-500"
                                           : "text-blue-500"
                                       }`}
@@ -560,10 +562,10 @@ export default function Pengajuan({ user }) {
                                 <p
                                   className={`w-1/2 text-center text-xs rounded-md py-1 ${
                                     items.status ===
-                                    "Document has been validate by system"
+                                    "Berkas telah lolos pengecekan sistem"
                                       ? "text-green-700 bg-green-200"
                                       : items.status ===
-                                        "Document has been rejected by system"
+                                        "Berkas tidak lolos pengecekan sistem"
                                       ? "text-red-700 bg-red-200"
                                       : "text-blue-700 bg-blue-200"
                                   }`}
@@ -599,7 +601,7 @@ export default function Pengajuan({ user }) {
                     </tbody>
                   </table>
                 </div>
-                {filteredDocs.length > 0 && (
+                {filteredDocs.length > itemsPerPage && (
                   <Pagination
                     itemsPerPage={itemsPerPage}
                     currentPage={currentPage}

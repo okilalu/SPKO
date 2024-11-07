@@ -5,15 +5,20 @@ import Sidebar from "../components/Sidebar";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function Validate({ nasabahId, validateData, loadingList }) {
+export default function Validate({
+  nasabahId,
+  validateData,
+  loadingList,
+  handleCloseModal,
+}) {
   const navigate = useNavigate();
   const location = useLocation();
   // const { nasabahId } = location.state || {};
   const [input, setInput] = useState({
-    behavior: "",
-    attendance: "",
-    teamwork: "",
-    fileCompleteness: "",
+    perilaku: "",
+    kehadiran: "",
+    kerjasamaTim: "",
+    kelengkapanBerkas: "",
   });
 
   const handleInputChange = (e) => {
@@ -28,10 +33,10 @@ export default function Validate({ nasabahId, validateData, loadingList }) {
   const handleValidate = async (e) => {
     e.preventDefault();
     const handleSubmitValidate = {
-      behavior: input.behavior,
-      attendance: input.attendance,
-      teamwork: input.teamwork,
-      fileCompleteness: input.fileCompleteness,
+      perilaku: input.perilaku,
+      kehadiran: input.kehadiran,
+      kerjasamaTim: input.kerjasamaTim,
+      kelengkapanBerkas: input.kelengkapanBerkas,
     };
     try {
       const token = localStorage.getItem("token");
@@ -49,12 +54,13 @@ export default function Validate({ nasabahId, validateData, loadingList }) {
         document.getElementById("my_modal_3").showModal();
         await validateData();
         setInput({
-          behavior: "",
-          attendance: "",
-          teamwork: "",
-          fileCompleteness: "",
+          perilaku: "",
+          kehadiran: "",
+          kerjasamaTim: "",
+          kelengkapanBerkas: "",
         });
         console.log("Berhasil");
+        handleCloseModal();
       }
     } catch (error) {
       console.log(error);
@@ -72,93 +78,93 @@ export default function Validate({ nasabahId, validateData, loadingList }) {
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="behavior"
+                htmlFor="perilaku"
               >
                 Perilaku
               </label>
               <select
-                id="behavior"
-                name="behavior"
-                value={input.behavior}
+                id="perilaku"
+                name="perilaku"
+                value={input.perilaku}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded-lg text-gray-700"
                 required
               >
                 <option value="">Pilih</option>
-                <option value="excellent">Sangat Baik</option>
-                <option value="good">Baik</option>
-                <option value="ordinary">Biasa</option>
-                <option value="not good">Tidak Baik</option>
-                <option value="very bad">Sangat Tidak Baik</option>
+                <option value="sangat baik">Sangat Baik</option>
+                <option value="baik">Baik</option>
+                <option value="biasa">Biasa</option>
+                <option value="tidak baik">Tidak Baik</option>
+                <option value="sangat tidak baik">Sangat Tidak Baik</option>
               </select>
             </div>
 
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="attendance"
+                htmlFor="kehadiran"
               >
                 Kehadiran
               </label>
               <select
-                id="attendance"
-                name="attendance"
-                value={input.attendance}
+                id="kehadiran"
+                name="kehadiran"
+                value={input.kehadiran}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded-lg text-gray-700"
                 required
               >
                 <option value="">Pilih</option>
-                <option value="excellent">Sangat Baik</option>
-                <option value="good">Baik</option>
-                <option value="ordinary">Biasa</option>
-                <option value="not good">Tidak Baik</option>
-                <option value="very bad">Sangat Tidak Baik</option>
+                <option value="sangat baik">Sangat Baik</option>
+                <option value="baik">Baik</option>
+                <option value="biasa">Biasa</option>
+                <option value="tidak baik">Tidak Baik</option>
+                <option value="sangat tidak baik">Sangat Tidak Baik</option>
               </select>
             </div>
 
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="teamwork"
+                htmlFor="kerjasamaTim"
               >
                 Kerja Sama Tim
               </label>
               <select
-                id="teamwork"
-                name="teamwork"
-                value={input.teamwork}
+                id="kerjasamaTim"
+                name="kerjasamaTim"
+                value={input.kerjasamaTim}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded-lg text-gray-700"
                 required
               >
                 <option value="">Pilih</option>
-                <option value="excellent">Sangat Baik</option>
-                <option value="good">Baik</option>
-                <option value="ordinary">Biasa</option>
-                <option value="not good">Tidak Baik</option>
-                <option value="very bad">Sangat Tidak Baik</option>
+                <option value="sangat baik">Sangat Baik</option>
+                <option value="baik">Baik</option>
+                <option value="biasa">Biasa</option>
+                <option value="tidak baik">Tidak Baik</option>
+                <option value="sangat tidak baik">Sangat Tidak Baik</option>
               </select>
             </div>
 
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="fileCompleteness"
+                htmlFor="kelengkapanBerkas"
               >
                 Kelengkapan Berkas
               </label>
               <select
-                id="fileCompleteness"
-                name="fileCompleteness"
-                value={input.fileCompleteness}
+                id="kelengkapanBerkas"
+                name="kelengkapanBerkas"
+                value={input.kelengkapanBerkas}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded-lg text-gray-700"
                 required
               >
                 <option value="">Pilih</option>
-                <option value="complate">Lengkap</option>
-                <option value="incomplate">Tidak Lengkap</option>
+                <option value="lengkap">Lengkap</option>
+                <option value="tidak lengkap">Tidak Lengkap</option>
               </select>
             </div>
 

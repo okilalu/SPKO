@@ -59,7 +59,7 @@ export default function DaftarNasabah({ handleDetailMenu }) {
       console.log(currentUserResponse);
 
       if (currentUserResponse.status) {
-        setDaftarNasabah(currentUserResponse.data.customer);
+        setDaftarNasabah(currentUserResponse.data.nasabah);
       }
     } catch (error) {
       console.log(error);
@@ -168,30 +168,6 @@ export default function DaftarNasabah({ handleDetailMenu }) {
                                     onClick={() => handleOpenDetails(items.id)}
                                   >
                                     <IoEllipsisVertical />
-                                    {/* <div className="absolute z-50 shadow-lg bg-white top-5">
-                                      <div
-                                        className="p-1 px-3 rounded-md"
-                                        onClick={() =>
-                                          handleOpenDetails(items.id)
-                                        }
-                                      >
-                                        <div className="flex flex-row gap-1 items-center cursor-pointer">
-                                          <p className="border border-blue-500 w-12 rounded-lg">
-                                            details
-                                          </p>
-                                        </div>
-                                      </div>
-                                      <div
-                                        className="p-1 px-3 rounded-md"
-                                        onClick={() =>
-                                          handleOpenModal(items.id)
-                                        }
-                                      >
-                                        <div className="border border-blue-500 rounded-lg w-14 flex items-center justify-center cursor-pointer">
-                                          <p>validasi</p>
-                                        </div>
-                                      </div>
-                                    </div> */}
                                   </button>
                                 </div>
                                 <dialog id="my_modal_3" className="modal">
@@ -238,12 +214,14 @@ export default function DaftarNasabah({ handleDetailMenu }) {
               </h2>
             </div>
           )}
-          <Pagination
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            handlePageChange={handlePageChange}
-            totalItems={filteredDocs.length}
-          />
+          {itemsPengajuan.length > 0 && (
+            <Pagination
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              handlePageChange={handlePageChange}
+              totalItems={filteredDocs.length}
+            />
+          )}
         </div>
       </div>
     </div>

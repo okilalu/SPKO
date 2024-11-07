@@ -118,28 +118,28 @@ export default function TambahNasabah() {
         ? lainnyaResponsibleIdentitas
         : responsibleIdentity;
     const addResponsible = {
-      responsible: finalResponsible,
-      responsibleIdentity: finalResponsibleIdentity,
-      responsibleNoIdentity: responsibleNoIdentity,
-      responsibleName: responsibleName,
+      penanggungJawab: finalResponsible,
+      identitasPenanggungJawab: finalResponsibleIdentity,
+      noIdentitasPenanggungJawab: responsibleNoIdentity,
+      namaPenanggungJawab: responsibleName,
     };
     const addCustomerPayload = {
-      identity: finalIdentity,
-      noIdentity: noIdentity,
-      name: name,
-      born: born,
-      gender: gender,
-      religion: religion,
-      merriedStatus: merriedStatus,
-      citizenShip: citizenShip,
-      motherName: motherName,
-      address: address,
-      phoneNumber: phoneNumber,
-      education: finalEducation,
-      jobStatus: jobStatus,
-      businessCategory: finalBusinessCategory,
-      businessDesc: businessDesc,
-      responsibles: addResponsible,
+      identitas: finalIdentity,
+      noIdentitas: noIdentity,
+      nama: name,
+      ttl: born,
+      jenisKelamin: gender,
+      agama: religion,
+      statusPerkawninan: merriedStatus,
+      kewarganegaraan: citizenShip,
+      namaIbu: motherName,
+      alamat: address,
+      noHP: phoneNumber,
+      pendidikan: finalEducation,
+      statusPekerjaan: jobStatus,
+      kategoriBisnis: finalBusinessCategory,
+      deskBisnis: businessDesc,
+      penanggungJawabs: addResponsible,
     };
     try {
       const token = localStorage.getItem("token");

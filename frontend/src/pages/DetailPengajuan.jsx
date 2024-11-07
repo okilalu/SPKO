@@ -44,43 +44,46 @@ export default function DetailPengajuan({
   console.log(detailNasabah);
 
   useEffect(() => {
-    const validateLogin = async () => {
-      try {
-        // Check user login status
-        const token = localStorage.getItem("token");
-
-        const currentUserRequest = await axios.get(
-          `http://localhost:2020/api/v2/get/customer/${selectedId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        console.log(currentUserRequest);
-        const currentUserResponse = currentUserRequest.data;
-        console.log(currentUserResponse);
-
-        if (currentUserResponse.status) {
-          setDetailNasabah(currentUserResponse.data.customer);
-          setUser(currentUserResponse.data.user);
-          setIsLoggedIn(true);
-        }
-      } catch (error) {
-        console.log(error);
-
-        setIsLoggedIn(false);
-      } finally {
-        setLoading(false);
-      }
-    };
     validateLogin();
   }, [selectedId]);
+  const validateLogin = async () => {
+    try {
+      // Check user login status
+      const token = localStorage.getItem("token");
+
+      const currentUserRequest = await axios.get(
+        `http://localhost:2020/api/v2/get/customer/${selectedId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(currentUserRequest);
+      const currentUserResponse = currentUserRequest.data;
+      console.log(currentUserResponse);
+
+      if (currentUserResponse.status) {
+        setDetailNasabah(currentUserResponse.data.nasabah);
+        setUser(currentUserResponse.data.user);
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.log(error);
+
+      setIsLoggedIn(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleOpenModal = (nasabahId) => {
     setSelectedNasabahId(nasabahId);
     document.getElementById("my_modal_3").showModal();
+  };
+  const handleCloseModal = () => {
+    document.getElementById("my_modal_3").close();
   };
 
   // console.log(user);
@@ -93,57 +96,18 @@ export default function DetailPengajuan({
             <li>
               <a className="gap-2" onClick={handleBack}>
                 <AiOutlineHome />
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className="h-4 w-4 stroke-current"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                  ></path>
-                </svg> */}
                 Home
               </a>
             </li>
             <li>
               <a className="gap-2" onClick={handleBackList}>
                 <IoListOutline />
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className="h-4 w-4 stroke-current"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                  ></path>
-                </svg> */}
                 Daftar Nasabah
               </a>
             </li>
             <li>
               <span className="inline-flex items-center gap-2">
                 <MdOutlineFileOpen />
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className="h-4 w-4 stroke-current"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  ></path>
-                </svg> */}
                 Detail Pengajuan
               </span>
             </li>
@@ -170,7 +134,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Jenis Identitas:</p>
                 </div>
                 <p className="flex-1 flex text-gray-800">
-                  {detailNasabah?.identity || ""}
+                  {detailNasabah?.identitas || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -179,7 +143,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">No. Identitas:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.noIdentity || ""}
+                  {detailNasabah?.noIdentitas || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -188,7 +152,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Nama Nasabah:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.name || ""}
+                  {detailNasabah?.nama || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -199,7 +163,7 @@ export default function DetailPengajuan({
                   </p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.born || ""}
+                  {detailNasabah?.ttl || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -208,7 +172,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Jenis Kelamin:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.gender || ""}
+                  {detailNasabah?.jenisKelamin || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -217,7 +181,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Agama:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.religion || ""}
+                  {detailNasabah?.agama || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -228,7 +192,7 @@ export default function DetailPengajuan({
                   </p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.merriedStatus || ""}
+                  {detailNasabah?.statusPerkawninan || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -237,7 +201,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Kewarganegaraan:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.citizenShip || ""}
+                  {detailNasabah?.kewarganegaraan || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -246,7 +210,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Nama Ibu Kandung:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.motherName || ""}
+                  {detailNasabah?.namaIbu || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -255,7 +219,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Alamat Lengkap:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.address || ""}
+                  {detailNasabah?.alamat || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -264,7 +228,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">No. HP:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.phoneNumber || ""}
+                  {detailNasabah?.noHP || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -273,7 +237,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Pendidikan:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.education || ""}
+                  {detailNasabah?.pendidikan || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -282,7 +246,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Pekerjaan:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.jobStatus || ""}
+                  {detailNasabah?.statusPekerjaan || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -291,7 +255,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Kategori Usaha:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.businessCategory || ""}
+                  {detailNasabah?.kategoriBisnis || ""}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -300,7 +264,7 @@ export default function DetailPengajuan({
                   <p className="font-medium text-gray-600">Deskripsi Usaha:</p>
                 </div>
                 <p className="text-gray-800 flex-1 flex">
-                  {detailNasabah?.businessDesc || ""}
+                  {detailNasabah?.deskBisnis || ""}
                 </p>
               </div>
             </div>
@@ -311,7 +275,7 @@ export default function DetailPengajuan({
               Penanggung Jawab
             </h3>
             <div className="space-y-4">
-              {detailNasabah?.responsibles.map((items) => (
+              {detailNasabah?.penanggungJawabs.map((items) => (
                 <>
                   <div className="flex gap-3">
                     <div className="flex items-center flex-1 gap-3">
@@ -321,7 +285,7 @@ export default function DetailPengajuan({
                       </p>
                     </div>
                     <p className="text-gray-800 flex-1 flex">
-                      {items?.responsible || ""}
+                      {items?.penanggungJawab || ""}
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -332,7 +296,7 @@ export default function DetailPengajuan({
                       </p>
                     </div>
                     <p className="text-gray-800 flex-1 flex">
-                      {items?.responsibleIdentity || ""}
+                      {items?.identitasPenanggungJawab || ""}
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -343,7 +307,7 @@ export default function DetailPengajuan({
                       </p>
                     </div>
                     <p className="text-gray-800 flex-1 flex">
-                      {items?.responsibleNoIdentity || ""}
+                      {items?.noIdentitasPenanggungJawab || ""}
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -352,7 +316,7 @@ export default function DetailPengajuan({
                       <p className="font-medium text-gray-600">Nama:</p>
                     </div>
                     <p className="text-gray-800 flex-1 flex">
-                      {items?.responsibleName || ""}
+                      {items?.namaPenanggungJawab || ""}
                     </p>
                   </div>
                 </>
@@ -393,8 +357,9 @@ export default function DetailPengajuan({
               <div className="modal-box">
                 <Validate
                   nasabahId={selectedNasabahId}
-                  // validateData={validateLogin}
-                  // loadingList={setLoading}
+                  validateData={validateLogin}
+                  loadingList={setLoading}
+                  handleCloseModal={handleCloseModal}
                 />
                 <div className="modal-action">
                   <form method="dialog">
