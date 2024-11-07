@@ -7,7 +7,7 @@ const app = express();
 // controllers
 const middleware = require("./middleware/authentication");
 const userControllers = require("./controllers/userControllers");
-const customerControllers = require("./controllers/customerControllers");
+const nasabahControllers = require("./controllers/nasabahControllers");
 const validateControllers = require("./controllers/validateControllers");
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -73,48 +73,48 @@ app.get(
 app.post(
   "/api/v2/customer/create",
   middleware.authenticate,
-  customerControllers.create
+  nasabahControllers.create
 );
 app.put(
   "/api/v2/customer/update/:id",
   middleware.authenticate,
-  customerControllers.update
+  nasabahControllers.update
 );
 app.delete(
   "/api/v2/customer/delete/:id",
   middleware.authenticate,
-  customerControllers.delete
+  nasabahControllers.delete
 );
-app.get("/api/v2/customer", middleware.authenticate, customerControllers.list);
+app.get("/api/v2/customer", middleware.authenticate, nasabahControllers.list);
 app.get(
   "/api/v2/customer/status",
   middleware.authenticate,
-  customerControllers.listByStatus
+  nasabahControllers.listByStatus
 );
 app.get(
   "/api/v2/customer/status/:status",
   middleware.authenticate,
-  customerControllers.listAlltatus
+  nasabahControllers.listAlltatus
 );
 app.get(
   "/api/v2/customer/status/acc",
   middleware.authenticate,
-  customerControllers.listStatusAcc
+  nasabahControllers.listStatusAcc
 );
 app.get(
   "/api/v2/customer/status/rej",
   middleware.authenticate,
-  customerControllers.listStatusRej
+  nasabahControllers.listStatusRej
 );
 app.get(
   "/api/v2/customer/:id",
   middleware.authenticate,
-  customerControllers.listByUserId
+  nasabahControllers.listByUserId
 );
 app.get(
   "/api/v2/get/customer/:id",
   middleware.authenticate,
-  customerControllers.getCustomerById
+  nasabahControllers.getNasabahById
 );
 // app.get(
 //   "/api/v2/loan/wait/:id",

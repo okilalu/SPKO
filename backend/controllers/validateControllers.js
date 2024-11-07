@@ -1,107 +1,107 @@
-const { validate, customer } = require("../models");
+const { validasi, nasabah } = require("../models");
 
 module.exports = {
   async validateDoc(req, res) {
     const id = req.params.id;
     try {
-      let { behavior, attendance, teamwork, fileCompleteness } = req.body;
+      let { perilaku, kehadiran, kerjasamaTim, kelengkapanBerkas } = req.body;
 
       const validOptions = [
-        "excellent",
-        "good",
-        "ordinary",
-        "not good",
-        "very bad",
+        "sangat baik",
+        "baik",
+        "biasa",
+        "tidak baik",
+        "sangat tidak baik",
       ];
-      const validFileOptions = ["complate", "incomplate"];
+      const validFileOptions = ["lengkap", "tidak lengkap"];
 
-      if (!fileCompleteness) {
-        fileCompleteness = "complate";
+      if (!kelengkapanBerkas) {
+        kelengkapanBerkas = "complate";
       }
-      console.log("behavior", behavior);
-      console.log("attendance", attendance);
-      console.log("teamwork", teamwork);
-      console.log("fileCompleteness", fileCompleteness);
+      console.log("perilaku", perilaku);
+      console.log("kehadiran", kehadiran);
+      console.log("kerjasamaTim", kerjasamaTim);
+      console.log("kelengkapanBerkas", kelengkapanBerkas);
 
-      if (!validOptions.includes(behavior)) {
+      if (!validOptions.includes(perilaku)) {
         return res.status(400).send({
           status: true,
-          message: "Must be choose one of their option behavior",
-          data: { validate: null },
+          message: "Harus memilih salah satu dari opsi perilaku",
+          data: { validasi: null },
         });
       }
-      if (!validOptions.includes(attendance)) {
+      if (!validOptions.includes(kehadiran)) {
         return res.status(400).send({
           status: true,
-          message: "Must be choose one of their option attendance",
-          data: { validate: null },
+          message: "Harus memilih salah satu dari opsi kehadiran",
+          data: { validasi: null },
         });
       }
-      if (!validOptions.includes(teamwork)) {
+      if (!validOptions.includes(kerjasamaTim)) {
         return res.status(400).send({
           status: true,
-          message: "Must be choose one of their option teamwork",
-          data: { validate: null },
+          message: "Harus memilih salah satu dari opsi kerjasamaTim",
+          data: { validasi: null },
         });
       }
-      if (!validFileOptions.includes(fileCompleteness)) {
+      if (!validFileOptions.includes(kelengkapanBerkas)) {
         return res.status(400).send({
           status: true,
-          message: "Must be choose one of their option file",
-          data: { validate: null },
+          message: "Harus memilih salah satu dari opsi file",
+          data: { validasi: null },
         });
       }
-      let behaviorScore =
-        behavior === "excellent"
+      let perilakuScore =
+        perilaku === "sangat baik"
           ? 5
-          : behavior === "good"
+          : perilaku === "baik"
           ? 4
-          : behavior === "ordinary"
+          : perilaku === "biasa"
           ? 3
-          : behavior === "not good"
+          : perilaku === "tidak baik"
           ? 2
           : 1;
-      let attendanceScore =
-        attendance === "excellent"
+      let kehadiranScore =
+        kehadiran === "sangat baik"
           ? 5
-          : attendance === "good"
+          : kehadiran === "baik"
           ? 4
-          : attendance === "ordinary"
+          : kehadiran === "biasa"
           ? 3
-          : attendance === "not good"
+          : kehadiran === "tidak baik"
           ? 2
           : 1;
-      let teamworkScore =
-        teamwork === "excellent"
+      let kerjasamaTimScore =
+        kerjasamaTim === "sangat baik"
           ? 5
-          : teamwork === "good"
+          : kerjasamaTim === "baik"
           ? 4
-          : teamwork === "ordinary"
+          : kerjasamaTim === "biasa"
           ? 3
-          : teamwork === "not good"
+          : kerjasamaTim === "tidak baik"
           ? 2
           : 1;
-      let fileCompletenessScore = fileCompleteness === "complate" ? 5 : 1;
+      let kelengkapanBerkasScore = kelengkapanBerkas === "lengkap" ? 5 : 1;
 
-      console.log("behaviorScore :", behaviorScore);
-      console.log("attendanceScore :", attendanceScore);
-      console.log("teamworkScore :", teamworkScore);
-      console.log("fileCompletenessScore :", fileCompletenessScore);
+      console.log("perilakuScore :", perilakuScore);
+      console.log("kehadiranScore :", kehadiranScore);
+      console.log("kerjasamaTimScore :", kerjasamaTimScore);
+      console.log("kelengkapanBerkasScore :", kelengkapanBerkasScore);
 
       const totalScore =
-        0.3 * behaviorScore +
-        0.4 * attendanceScore +
-        0.2 * teamworkScore +
-        0.1 * fileCompletenessScore;
+        0.3 * perilakuScore +
+        0.4 * kehadiranScore +
+        0.2 * kerjasamaTimScore +
+        0.1 * kelengkapanBerkasScore;
       console.log("totalScore :", totalScore);
 
-      const validateData = await validate.create({
-        behavior,
-        attendance,
-        teamwork,
-        fileCompleteness,
+      const validateData = await validasi.create({
+        perilaku,
+        kehadiran,
+        kerjasamaTim,
+        kelengkapanBerkas,
         totalScore,
-        customerId: id,
+        nasabahId: id,
       });
       console.log(validateData);
 
@@ -111,67 +111,67 @@ module.exports = {
       if (!validateData) {
         return res.status(404).send({
           status: false,
-          message: "Failed to get validate",
-          data: { validate: null },
+          message: "Gagal melakukan validasi data",
+          data: { validasi: null },
         });
       }
 
       if (totalScore <= threshold) {
-        await customer.update(
+        await nasabah.update(
           {
-            status: "Document has been rejected by system",
+            status: "Berkas tidak lolos pengecekan sistem",
           },
           { where: { id: id } }
         );
         return res.status(200).send({
           status: true,
-          message: "Your doc has been rejected",
-          data: { validate: validateData },
+          message: "Berkas anda telah ditolak",
+          data: { validasi: validateData },
         });
       } else {
-        await customer.update(
+        await nasabah.update(
           {
-            status: "Document has been validate by system",
+            status: "Berkas telah lolos pengecekan sistem",
           },
           { where: { id: id } }
         );
         return res.status(200).send({
           status: true,
-          message: "Your doc has been accepted",
-          data: { validate: validateData },
+          message: "Berkas anda telah diterima",
+          data: { validasi: validateData },
         });
       }
     } catch (error) {
       console.log(error);
       return res.status(500).send({
         status: false,
-        message: "Something error with the server",
-        data: { validate: null },
+        message: "Terjadi kesalahan pada server",
+        data: { validasi: null },
       });
     }
   },
   async list(req, res) {
     try {
-      const getValidateData = await validate.findAll();
+      const getValidateData = await validasi.findAll();
       if (getValidateData) {
         return res.status(200).send({
           status: true,
-          message: "List data document has been validate",
-          data: { validate: getValidateData },
+          message: "List data berkas yang telah divalidasi",
+          data: { validasi: getValidateData },
         });
       } else {
         return res.status(404).send({
           status: false,
-          message: "Can't find a list data has been validate",
-          data: { validate: null },
+          message: "Tidak ada list data berkas yang sudah divalidasi",
+          data: { validasi: null },
         });
       }
     } catch (error) {
       console.log(error);
       return res.status(500).send({
         status: false,
-        message: "Something error with the server",
-        data: { validate: null },
+        message: "Terjadi kesalahan pada server",
+        data: { validasi: null },
       });
     }
   },
