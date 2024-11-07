@@ -6,3 +6,7 @@
   font-family: Kanit;
   src: url(./assets/fonts/Kanit-Regular.ttf);
 }
+@font-face {
+  font-family: Josefin;
+  src: url(./assets/fonts/JosefinSans-Regular.ttf);
+}
